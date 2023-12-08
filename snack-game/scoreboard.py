@@ -2,26 +2,29 @@ from turtle import Turtle
 ALIGNMENT = "center"
 FONT = ('Courier', 15, 'normal')
 
-
 class Scoreboard(Turtle):
 
      def __init__(self):
          super().__init__()
          self.foodscore = 0
+         with open("data.txt") as file:
+             self.highscore = int(file.read())
          self.color("white")
          self.hideturtle()
          self.penup()
          self.goto(0, 270)
-         self.updatescore()
 
      def score(self):
-         self.write(f"Score: {self.foodscore}", align = ALIGNMENT, font= FONT)
+         self.clear()
+         self.write(f"Score: {self.foodscore} High Score: {self.highscore}", align = ALIGNMENT, font= FONT)
 
-     def game_over(self):
-         self.goto(0, 0)
-         self.write("GAME OVER.", align = ALIGNMENT, font= FONT)
+     def reset(self):
+         if self.foodscore > int(self.highscore):
+             self.highscore = self.foodscore
+             with open("data.txt", mode ="w") as file:
+                 file.write(f"{self.highscore}")
+         self.foodscore = 0
 
      def updatescore(self):
          self.foodscore += 1
-         self.clear()
          self.score()
