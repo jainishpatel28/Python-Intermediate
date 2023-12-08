@@ -1,6 +1,7 @@
 from turtle import Turtle, Screen
 MOVING_SPEED = 20
 STARTING_POSITIONS = [(0, 0), (-20, 0), (-40, 0)]
+
 class Snake:
 
     def __init__(self):
@@ -12,7 +13,7 @@ class Snake:
         for position in STARTING_POSITIONS:
             self.add_snake(position)
 
-
+# Creating and adding new segment at the end of snake.
     def add_snake(self, position):
         snake = Turtle(shape="square")
         snake.color("white")
@@ -20,13 +21,20 @@ class Snake:
         snake.goto(position)
         self.joint_snake.append(snake)
 
+# Function to get snake back to starting positiona and start over by keeping the High score as it is...
+    def reset(self):
+        for seg in self.joint_snake:
+            seg.goto(1000, 1000)
+        self.joint_snake.clear()
+        self.createSnake()
+        self.head = self.joint_snake[0]
 
+# Function to add each new segment at very end of tail segment after food.
     def extend(self):
         self.add_snake(self.joint_snake[-1].position())
 
-        # add a new segment to the snake.
 
-
+# Function that will keep moving the snake from head to tail...
     def move(self):
         for snake_num in range(len(self.joint_snake) - 1, 0, -1):
             new_x = self.joint_snake[snake_num - 1].xcor()
@@ -35,6 +43,7 @@ class Snake:
         self.joint_snake[0].forward(MOVING_SPEED)
 
 
+# Keys commands for snake...
     def up(self):
         if self.head.heading() != 270:
             self.head.setheading(90)
