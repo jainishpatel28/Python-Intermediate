@@ -2,8 +2,7 @@ import random
 from turtle import Turtle
 
 class Food(Turtle):
-    '''whenver the object created from this class will get called it will create new food,
-       so only creating __init__ does not really makes much of the difference.'''
+
     def __init__(self):
         super().__init__()
         self.shape("circle")
