@@ -1,4 +1,3 @@
-# splitting days to build the game (breaking the problems into pieces):
 # The plan is to create 3 classes...Snake, Food, Scorecard
 from turtle import Turtle, Screen
 import time
@@ -12,10 +11,6 @@ screen.bgcolor("black")
 screen.title("The Snack Game")
 screen.tracer(0)
 
-# Day-1...
-# Create a snake
-# Move the snake
-# Control snake food
 
 snake = Snake()
 food = Food()
@@ -35,27 +30,25 @@ while game_on:
     time.sleep(0.2)
     snake.move()
 
-
-# Day-2...
 # Detect collision with food
     if snake.head.distance(food) < 15:
         food.refresh()
         snake.extend()
+        scoreboard.updatescore()
 
 # Create a scoreboard
-        scoreboard.updatescore()
     scoreboard.score()
 
 # Detect collision with wall
     if snake.head.xcor() > 290 or snake.head.xcor() < -290 or snake.head.ycor() > 290 or snake.head.ycor() < -290:
-        scoreboard.game_over()
-        game_on = False
+        scoreboard.reset()
+        snake.reset()
 
 # Detect collision with tail
-#     if head collides with any segment of snake then game over, pass the head segment
+# if head collides with any segment of snake then game over, important is to pass the head segment
     for segment in snake.joint_snake[1:]:
         if snake.head.distance(segment) < 10:
-            game_on = False
-            scoreboard.game_over()
+            scoreboard.reset()
+            snake.reset()
 
 screen.exitonclick()
