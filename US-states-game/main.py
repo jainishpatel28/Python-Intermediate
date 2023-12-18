@@ -47,10 +47,13 @@ while game_on:
 
 
 # save missing state in .csv file
-missing_state = []
-for name in state_name_list:
-    if name not in answered_guess:
-        missing_state.append(name)
+# use list comprehension 
+missing_state = [name for name in state_name_list if name not in answered_guess]
+
+# missing_state = []
+# for name in state_name_list:
+#     if name not in answered_guess:
+#         missing_state.append(name)
 
 new_data = pandas.DataFrame(missing_state)
 new_data.to_csv("state_to_learn.csv")
